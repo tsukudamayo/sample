@@ -3,6 +3,6 @@
 using namespace std;
 
 int main() {
-  std::cout << "" << std::endl;
+  std::cout << "こんにちは" << std::endl;
   std::cout << "AtCoder" << std::endl;
 }
