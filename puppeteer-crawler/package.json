@@ -1,0 +1,11 @@
+{
+  "name": "puppeteer-crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "find-orangepage-time-20191004.js",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "author": "tsukudamayo",
+  "license": "MIT"
+}
