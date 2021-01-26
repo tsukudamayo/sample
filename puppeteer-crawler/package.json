@@ -7,5 +7,9 @@
     "test": "jest --watch"
   },
   "author": "tsukudamayo",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "delay": "^4.4.0",
+    "puppeteer": "^5.5.0"
+  }
 }
