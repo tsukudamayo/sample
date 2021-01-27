@@ -3,8 +3,8 @@ const delay = require('delay');
 const fs = require('fs');
 
 const TIMEOUT_THRESHOLD = 300000;
-const ROOTDIR = '../data';
-const TARGETDIR = '../data/orangepage_repipe';
+const ROOTDIR = '../../data/dataset';
+const TARGETDIR = '../../data/dataset/orangepage_recipe';
 
 const ingredientDispatcher = (element) => {
   if (element === '材料（2人分4人分）') {
@@ -83,6 +83,7 @@ const outputData = (data, filePath) => {
   const browser = await puppeteer.launch({
     headless: false,
     slowMo: 50,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
 
   const page = await browser.newPage();
@@ -98,13 +99,13 @@ const outputData = (data, filePath) => {
   let recipeCalory;
   let recipeSalt;
   let elementHandleList;
-  let titleXpath = '/html/body/div[1]/div[6]/div[1]/div/div[1]/h1';
-  let recipeXpath = '/html/body/div[1]/div[6]/div[1]/div/div[1]/div[3]/div/div/div[1]';
-  let timeXPath = '/html/body/div[1]/div[6]/div[1]/div/div[1]/div[2]/div[1]/ul/li[1]/time';
-  let ingredientsXpath = '/html/body/div[1]/div[6]/div[1]/div/div[1]/div[2]/div[2]/div';
-  let caloryXpath = '/html/body/div[1]/div[6]/div[1]/div/div[1]/div[2]/div[1]/ul/li[2]/span[2]';
-  let saltXpath = '/html/body/div[1]/div[6]/div[1]/div/div[1]/div[2]/div[1]/ul/li[3]';
-  let imageXpath = '/html/body/div[1]/div[6]/div[1]/div/div[1]/div[2]/div[1]/img';
+  let titleXpath = '//*[@id="articleContainer-00001"]/div/div[1]/section[1]/div[1]/h2';
+  let recipeXpath = '//*[@id="articleContainer-00001"]/div/div[1]/section[1]/div[5]/div[1]';
+  let timeXPath = '//*[@id="articleContainer-00001"]/div/div[1]/section[1]/div[3]/div[2]/p[2]/span[1]/time';
+  let ingredientsXpath = '//*[@id="articleContainer-00001"]/div/div[1]/section[1]/div[3]/div[2]/ul';
+  let calorySelector = '#articleContainer-00001 > div > div.contLeft > section.recipesDetailSection > div.recipesDetailContTop > div.recipesDetailIngredients > p.nutritionTxt > span.calories';
+  let saltSelector = '#articleContainer-00001 > div > div.contLeft > section.recipesDetailSection > div.recipesDetailContTop > div.recipesDetailIngredients > p.nutritionTxt > span.salt';
+  let imageXpath = '//*[@id="articleContainer-00001"]/div/div[1]/section[1]/div[3]/div[1]/div';
 
   for (let index = 301148; index < 400000; index++) {
     
@@ -159,7 +160,7 @@ const outputData = (data, filePath) => {
 
     // calory
     let hasCalory = true;
-    elementHandleList = await page.$x(caloryXpath);
+    elementHandleList = await page.$$(calorySelector);
     for (let index=0; index < elementHandleList.length; index++) {
       if (elementHandleList.length === 0) {
         hasCalory = false;
@@ -175,7 +176,7 @@ const outputData = (data, filePath) => {
 
     // salt
     let hasSalt = false;
-    elementHandleList = await page.$x(saltXpath);
+    elementHandleList = await page.$$(saltSelector);
     for (let index=0; index < elementHandleList.length; index++) {
       if (elementHandleList.length === 0) {
         hasSalt = false;
@@ -272,7 +273,7 @@ const outputData = (data, filePath) => {
     });
     console.log(ingredientsEnum);
 
-    // download image
+    // TODO Download image
     let imageUrl;
     elementHandleList = await page.$x(imageXpath);
     for (let index=0; index < elementHandleList.length; index++) {
