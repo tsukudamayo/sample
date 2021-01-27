@@ -107,7 +107,7 @@ const outputData = (data, filePath) => {
   let saltSelector = '#articleContainer-00001 > div > div.contLeft > section.recipesDetailSection > div.recipesDetailContTop > div.recipesDetailIngredients > p.nutritionTxt > span.salt';
   let imageXpath = '//*[@id="articleContainer-00001"]/div/div[1]/section[1]/div[3]/div[1]/div';
 
-  for (let index = 301148; index < 400000; index++) {
+  for (let index = 100001; index < 999999; index++) {
     
     await page.goto(
       'https://www.orangepage.net/recipes/detail_' + String(index),
@@ -117,7 +117,8 @@ const outputData = (data, filePath) => {
 
     // ignore 404
     let currentURL = page.url();
-    if (currentURL === 'https://www.orangepage.net/404.html') {
+    console.log('currentURL : ', currentURL);
+    if (currentURL === 'https://www.orangepage.net/404') {
       console.log('recipe %s returns 404 Error', index);
       continue;
     }
