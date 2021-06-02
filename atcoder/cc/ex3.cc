@@ -1,7 +1,5 @@
 #include <iostream>
 
-using namespace std;
-
 int main() {
-  std::cout << 100 * (100 + 1) / 2 << std::endl;
+  std::cout << ((100 + 1) * 100) / 2 << std::endl;
 }
