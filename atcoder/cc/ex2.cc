@@ -1,6 +1,7 @@
 #include <iostream>
+using namespace std;
 
 int main() {
-  std::cout << "いつも" << "2525" << std::endl;
-  std::cout << "AtCoderくん" << std::endl;
+  cout << "いつも" << "2525" << endl;
+  cout << "AtCoderくん" << endl;
 }
