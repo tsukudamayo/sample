@@ -10,6 +10,8 @@ fi
 
 aws configure --profile $1
 mkdir infra && cd infra
+npm install -g typescript \
+    aws-cdk
 cdk init app --language=typescript
 npm install -D \
     eslint \
