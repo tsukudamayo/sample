@@ -4,6 +4,9 @@ module.exports = {
     'prettier',
     'plugin:prettier/recommended',
   ],
+  plugins: [
+    '@typescript-eslint',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2019,
