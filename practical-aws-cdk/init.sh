@@ -2,6 +2,7 @@
 
 if [ $# != 1 ]; then
     echo "define profile name"
+    echo "usage: ./init.sh profile_name"
     exit 1
 else
     echo "profile name" $1
@@ -18,7 +19,7 @@ npm install -D \
     eslint-config-prettier \
     eslint-plugin-prettier
 
-mv ../.eslintrc.js ./
-mv ../.prettierrc.js ./
+cp ../config/.eslintrc.js ./
+cp ../config/.prettierrc.js ./
 echo "!.eslintrc.js" >> .gitignore
 echo "!.prettierrc.js" >> .gitignore
