@@ -18,7 +18,7 @@ npm install -D \
     eslint-config-prettier \
     eslint-plugin-prettier
 
-cp ../.eslintrc.js ./
-cp ../.prettierrc.js ./
+mv ../.eslintrc.js ./
+mv ../.prettierrc.js ./
 echo "!.eslintrc.js" >> .gitignore
 echo "!.prettierrc.js" >> .gitignore
