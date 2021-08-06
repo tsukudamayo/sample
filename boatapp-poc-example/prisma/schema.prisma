@@ -1,0 +1,1103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model deadline {
+  place_n         Int       @id
+  race_n          Int?
+  deadline        DateTime? @db.DateTime(0)
+  update_datetime DateTime? @db.DateTime(0)
+  closed          Boolean?
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model meta_info {
+  race_date      DateTime? @db.Date
+  place_n        Int?
+  setsu_category String?   @db.VarChar(255)
+  setsu_title    String?   @db.VarChar(255)
+  n_day_in_setsu String?   @db.VarChar(255)
+  grade          String?   @db.VarChar(255)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model odds_before {
+  race_id   String?   @db.VarChar(255)
+  race_date DateTime? @db.Date
+  place_n   Int?
+  race_n    Int?
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_2_3 Decimal?  @map("_1_2_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_2_4 Decimal?  @map("_1_2_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_2_5 Decimal?  @map("_1_2_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_2_6 Decimal?  @map("_1_2_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_3_2 Decimal?  @map("_1_3_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_3_4 Decimal?  @map("_1_3_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_3_5 Decimal?  @map("_1_3_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_3_6 Decimal?  @map("_1_3_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_4_2 Decimal?  @map("_1_4_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_4_3 Decimal?  @map("_1_4_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_4_5 Decimal?  @map("_1_4_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_4_6 Decimal?  @map("_1_4_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_5_2 Decimal?  @map("_1_5_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_5_3 Decimal?  @map("_1_5_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_5_4 Decimal?  @map("_1_5_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_5_6 Decimal?  @map("_1_5_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_6_2 Decimal?  @map("_1_6_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_6_3 Decimal?  @map("_1_6_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_6_4 Decimal?  @map("_1_6_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_6_5 Decimal?  @map("_1_6_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_1_3 Decimal?  @map("_2_1_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_1_4 Decimal?  @map("_2_1_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_1_5 Decimal?  @map("_2_1_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_1_6 Decimal?  @map("_2_1_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_3_1 Decimal?  @map("_2_3_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_3_4 Decimal?  @map("_2_3_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_3_5 Decimal?  @map("_2_3_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_3_6 Decimal?  @map("_2_3_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_4_1 Decimal?  @map("_2_4_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_4_3 Decimal?  @map("_2_4_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_4_5 Decimal?  @map("_2_4_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_4_6 Decimal?  @map("_2_4_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_5_1 Decimal?  @map("_2_5_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_5_3 Decimal?  @map("_2_5_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_5_4 Decimal?  @map("_2_5_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_5_6 Decimal?  @map("_2_5_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_6_1 Decimal?  @map("_2_6_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_6_3 Decimal?  @map("_2_6_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_6_4 Decimal?  @map("_2_6_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_6_5 Decimal?  @map("_2_6_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_1_2 Decimal?  @map("_3_1_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_1_4 Decimal?  @map("_3_1_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_1_5 Decimal?  @map("_3_1_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_1_6 Decimal?  @map("_3_1_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_2_1 Decimal?  @map("_3_2_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_2_4 Decimal?  @map("_3_2_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_2_5 Decimal?  @map("_3_2_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_2_6 Decimal?  @map("_3_2_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_4_1 Decimal?  @map("_3_4_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_4_2 Decimal?  @map("_3_4_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_4_5 Decimal?  @map("_3_4_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_4_6 Decimal?  @map("_3_4_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_5_1 Decimal?  @map("_3_5_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_5_2 Decimal?  @map("_3_5_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_5_4 Decimal?  @map("_3_5_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_5_6 Decimal?  @map("_3_5_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_6_1 Decimal?  @map("_3_6_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_6_2 Decimal?  @map("_3_6_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_6_4 Decimal?  @map("_3_6_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_6_5 Decimal?  @map("_3_6_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_1_2 Decimal?  @map("_4_1_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_1_3 Decimal?  @map("_4_1_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_1_5 Decimal?  @map("_4_1_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_1_6 Decimal?  @map("_4_1_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_2_1 Decimal?  @map("_4_2_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_2_3 Decimal?  @map("_4_2_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_2_5 Decimal?  @map("_4_2_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_2_6 Decimal?  @map("_4_2_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_3_1 Decimal?  @map("_4_3_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_3_2 Decimal?  @map("_4_3_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_3_5 Decimal?  @map("_4_3_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_3_6 Decimal?  @map("_4_3_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_5_1 Decimal?  @map("_4_5_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_5_2 Decimal?  @map("_4_5_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_5_3 Decimal?  @map("_4_5_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_5_6 Decimal?  @map("_4_5_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_6_1 Decimal?  @map("_4_6_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_6_2 Decimal?  @map("_4_6_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_6_3 Decimal?  @map("_4_6_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_6_5 Decimal?  @map("_4_6_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_1_2 Decimal?  @map("_5_1_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_1_3 Decimal?  @map("_5_1_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_1_4 Decimal?  @map("_5_1_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_1_6 Decimal?  @map("_5_1_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_2_1 Decimal?  @map("_5_2_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_2_3 Decimal?  @map("_5_2_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_2_4 Decimal?  @map("_5_2_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_2_6 Decimal?  @map("_5_2_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_3_1 Decimal?  @map("_5_3_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_3_2 Decimal?  @map("_5_3_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_3_4 Decimal?  @map("_5_3_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_3_6 Decimal?  @map("_5_3_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_4_1 Decimal?  @map("_5_4_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_4_2 Decimal?  @map("_5_4_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_4_3 Decimal?  @map("_5_4_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_4_6 Decimal?  @map("_5_4_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_6_1 Decimal?  @map("_5_6_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_6_2 Decimal?  @map("_5_6_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_6_3 Decimal?  @map("_5_6_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_6_4 Decimal?  @map("_5_6_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_1_2 Decimal?  @map("_6_1_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_1_3 Decimal?  @map("_6_1_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_1_4 Decimal?  @map("_6_1_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_1_5 Decimal?  @map("_6_1_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_2_1 Decimal?  @map("_6_2_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_2_3 Decimal?  @map("_6_2_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_2_4 Decimal?  @map("_6_2_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_2_5 Decimal?  @map("_6_2_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_3_1 Decimal?  @map("_6_3_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_3_2 Decimal?  @map("_6_3_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_3_4 Decimal?  @map("_6_3_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_3_5 Decimal?  @map("_6_3_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_4_1 Decimal?  @map("_6_4_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_4_2 Decimal?  @map("_6_4_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_4_3 Decimal?  @map("_6_4_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_4_5 Decimal?  @map("_6_4_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_5_1 Decimal?  @map("_6_5_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_5_2 Decimal?  @map("_6_5_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_5_3 Decimal?  @map("_6_5_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_5_4 Decimal?  @map("_6_5_4") @db.Decimal(10, 2)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model odds_history {
+  race_n          Int?
+  place_n         Int?
+  race_date       DateTime? @db.Date
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_2_3       Decimal?  @map("_1_2_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_2_4       Decimal?  @map("_1_2_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_2_5       Decimal?  @map("_1_2_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_2_6       Decimal?  @map("_1_2_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_3_2       Decimal?  @map("_1_3_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_3_4       Decimal?  @map("_1_3_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_3_5       Decimal?  @map("_1_3_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_3_6       Decimal?  @map("_1_3_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_4_2       Decimal?  @map("_1_4_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_4_3       Decimal?  @map("_1_4_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_4_5       Decimal?  @map("_1_4_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_4_6       Decimal?  @map("_1_4_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_5_2       Decimal?  @map("_1_5_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_5_3       Decimal?  @map("_1_5_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_5_4       Decimal?  @map("_1_5_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_5_6       Decimal?  @map("_1_5_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_6_2       Decimal?  @map("_1_6_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_6_3       Decimal?  @map("_1_6_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_6_4       Decimal?  @map("_1_6_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_6_5       Decimal?  @map("_1_6_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_1_3       Decimal?  @map("_2_1_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_1_4       Decimal?  @map("_2_1_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_1_5       Decimal?  @map("_2_1_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_1_6       Decimal?  @map("_2_1_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_3_1       Decimal?  @map("_2_3_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_3_4       Decimal?  @map("_2_3_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_3_5       Decimal?  @map("_2_3_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_3_6       Decimal?  @map("_2_3_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_4_1       Decimal?  @map("_2_4_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_4_3       Decimal?  @map("_2_4_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_4_5       Decimal?  @map("_2_4_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_4_6       Decimal?  @map("_2_4_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_5_1       Decimal?  @map("_2_5_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_5_3       Decimal?  @map("_2_5_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_5_4       Decimal?  @map("_2_5_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_5_6       Decimal?  @map("_2_5_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_6_1       Decimal?  @map("_2_6_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_6_3       Decimal?  @map("_2_6_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_6_4       Decimal?  @map("_2_6_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_6_5       Decimal?  @map("_2_6_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_1_2       Decimal?  @map("_3_1_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_1_4       Decimal?  @map("_3_1_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_1_5       Decimal?  @map("_3_1_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_1_6       Decimal?  @map("_3_1_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_2_1       Decimal?  @map("_3_2_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_2_4       Decimal?  @map("_3_2_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_2_5       Decimal?  @map("_3_2_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_2_6       Decimal?  @map("_3_2_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_4_1       Decimal?  @map("_3_4_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_4_2       Decimal?  @map("_3_4_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_4_5       Decimal?  @map("_3_4_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_4_6       Decimal?  @map("_3_4_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_5_1       Decimal?  @map("_3_5_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_5_2       Decimal?  @map("_3_5_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_5_4       Decimal?  @map("_3_5_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_5_6       Decimal?  @map("_3_5_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_6_1       Decimal?  @map("_3_6_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_6_2       Decimal?  @map("_3_6_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_6_4       Decimal?  @map("_3_6_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_6_5       Decimal?  @map("_3_6_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_1_2       Decimal?  @map("_4_1_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_1_3       Decimal?  @map("_4_1_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_1_5       Decimal?  @map("_4_1_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_1_6       Decimal?  @map("_4_1_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_2_1       Decimal?  @map("_4_2_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_2_3       Decimal?  @map("_4_2_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_2_5       Decimal?  @map("_4_2_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_2_6       Decimal?  @map("_4_2_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_3_1       Decimal?  @map("_4_3_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_3_2       Decimal?  @map("_4_3_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_3_5       Decimal?  @map("_4_3_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_3_6       Decimal?  @map("_4_3_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_5_1       Decimal?  @map("_4_5_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_5_2       Decimal?  @map("_4_5_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_5_3       Decimal?  @map("_4_5_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_5_6       Decimal?  @map("_4_5_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_6_1       Decimal?  @map("_4_6_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_6_2       Decimal?  @map("_4_6_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_6_3       Decimal?  @map("_4_6_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_6_5       Decimal?  @map("_4_6_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_1_2       Decimal?  @map("_5_1_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_1_3       Decimal?  @map("_5_1_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_1_4       Decimal?  @map("_5_1_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_1_6       Decimal?  @map("_5_1_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_2_1       Decimal?  @map("_5_2_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_2_3       Decimal?  @map("_5_2_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_2_4       Decimal?  @map("_5_2_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_2_6       Decimal?  @map("_5_2_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_3_1       Decimal?  @map("_5_3_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_3_2       Decimal?  @map("_5_3_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_3_4       Decimal?  @map("_5_3_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_3_6       Decimal?  @map("_5_3_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_4_1       Decimal?  @map("_5_4_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_4_2       Decimal?  @map("_5_4_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_4_3       Decimal?  @map("_5_4_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_4_6       Decimal?  @map("_5_4_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_6_1       Decimal?  @map("_5_6_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_6_2       Decimal?  @map("_5_6_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_6_3       Decimal?  @map("_5_6_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_6_4       Decimal?  @map("_5_6_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_1_2       Decimal?  @map("_6_1_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_1_3       Decimal?  @map("_6_1_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_1_4       Decimal?  @map("_6_1_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_1_5       Decimal?  @map("_6_1_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_2_1       Decimal?  @map("_6_2_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_2_3       Decimal?  @map("_6_2_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_2_4       Decimal?  @map("_6_2_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_2_5       Decimal?  @map("_6_2_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_3_1       Decimal?  @map("_6_3_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_3_2       Decimal?  @map("_6_3_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_3_4       Decimal?  @map("_6_3_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_3_5       Decimal?  @map("_6_3_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_4_1       Decimal?  @map("_6_4_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_4_2       Decimal?  @map("_6_4_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_4_3       Decimal?  @map("_6_4_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_4_5       Decimal?  @map("_6_4_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_5_1       Decimal?  @map("_6_5_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_5_2       Decimal?  @map("_6_5_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_5_3       Decimal?  @map("_6_5_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_5_4       Decimal?  @map("_6_5_4") @db.Decimal(10, 2)
+  deadline        String?   @db.VarChar(255)
+  update_datetime String?   @db.VarChar(255)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model odds_kakutei {
+  race_id   String?   @db.VarChar(255)
+  race_date DateTime? @db.Date
+  place_n   Int?
+  race_n    Int?
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_2_3 Decimal?  @map("_1_2_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_2_4 Decimal?  @map("_1_2_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_2_5 Decimal?  @map("_1_2_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_2_6 Decimal?  @map("_1_2_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_3_2 Decimal?  @map("_1_3_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_3_4 Decimal?  @map("_1_3_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_3_5 Decimal?  @map("_1_3_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_3_6 Decimal?  @map("_1_3_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_4_2 Decimal?  @map("_1_4_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_4_3 Decimal?  @map("_1_4_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_4_5 Decimal?  @map("_1_4_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_4_6 Decimal?  @map("_1_4_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_5_2 Decimal?  @map("_1_5_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_5_3 Decimal?  @map("_1_5_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_5_4 Decimal?  @map("_1_5_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_5_6 Decimal?  @map("_1_5_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_6_2 Decimal?  @map("_1_6_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_6_3 Decimal?  @map("_1_6_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_6_4 Decimal?  @map("_1_6_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _1_6_5 Decimal?  @map("_1_6_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_1_3 Decimal?  @map("_2_1_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_1_4 Decimal?  @map("_2_1_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_1_5 Decimal?  @map("_2_1_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_1_6 Decimal?  @map("_2_1_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_3_1 Decimal?  @map("_2_3_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_3_4 Decimal?  @map("_2_3_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_3_5 Decimal?  @map("_2_3_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_3_6 Decimal?  @map("_2_3_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_4_1 Decimal?  @map("_2_4_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_4_3 Decimal?  @map("_2_4_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_4_5 Decimal?  @map("_2_4_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_4_6 Decimal?  @map("_2_4_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_5_1 Decimal?  @map("_2_5_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_5_3 Decimal?  @map("_2_5_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_5_4 Decimal?  @map("_2_5_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_5_6 Decimal?  @map("_2_5_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_6_1 Decimal?  @map("_2_6_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_6_3 Decimal?  @map("_2_6_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_6_4 Decimal?  @map("_2_6_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _2_6_5 Decimal?  @map("_2_6_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_1_2 Decimal?  @map("_3_1_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_1_4 Decimal?  @map("_3_1_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_1_5 Decimal?  @map("_3_1_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_1_6 Decimal?  @map("_3_1_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_2_1 Decimal?  @map("_3_2_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_2_4 Decimal?  @map("_3_2_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_2_5 Decimal?  @map("_3_2_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_2_6 Decimal?  @map("_3_2_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_4_1 Decimal?  @map("_3_4_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_4_2 Decimal?  @map("_3_4_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_4_5 Decimal?  @map("_3_4_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_4_6 Decimal?  @map("_3_4_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_5_1 Decimal?  @map("_3_5_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_5_2 Decimal?  @map("_3_5_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_5_4 Decimal?  @map("_3_5_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_5_6 Decimal?  @map("_3_5_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_6_1 Decimal?  @map("_3_6_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_6_2 Decimal?  @map("_3_6_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_6_4 Decimal?  @map("_3_6_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _3_6_5 Decimal?  @map("_3_6_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_1_2 Decimal?  @map("_4_1_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_1_3 Decimal?  @map("_4_1_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_1_5 Decimal?  @map("_4_1_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_1_6 Decimal?  @map("_4_1_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_2_1 Decimal?  @map("_4_2_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_2_3 Decimal?  @map("_4_2_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_2_5 Decimal?  @map("_4_2_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_2_6 Decimal?  @map("_4_2_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_3_1 Decimal?  @map("_4_3_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_3_2 Decimal?  @map("_4_3_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_3_5 Decimal?  @map("_4_3_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_3_6 Decimal?  @map("_4_3_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_5_1 Decimal?  @map("_4_5_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_5_2 Decimal?  @map("_4_5_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_5_3 Decimal?  @map("_4_5_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_5_6 Decimal?  @map("_4_5_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_6_1 Decimal?  @map("_4_6_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_6_2 Decimal?  @map("_4_6_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_6_3 Decimal?  @map("_4_6_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _4_6_5 Decimal?  @map("_4_6_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_1_2 Decimal?  @map("_5_1_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_1_3 Decimal?  @map("_5_1_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_1_4 Decimal?  @map("_5_1_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_1_6 Decimal?  @map("_5_1_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_2_1 Decimal?  @map("_5_2_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_2_3 Decimal?  @map("_5_2_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_2_4 Decimal?  @map("_5_2_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_2_6 Decimal?  @map("_5_2_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_3_1 Decimal?  @map("_5_3_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_3_2 Decimal?  @map("_5_3_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_3_4 Decimal?  @map("_5_3_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_3_6 Decimal?  @map("_5_3_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_4_1 Decimal?  @map("_5_4_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_4_2 Decimal?  @map("_5_4_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_4_3 Decimal?  @map("_5_4_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_4_6 Decimal?  @map("_5_4_6") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_6_1 Decimal?  @map("_5_6_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_6_2 Decimal?  @map("_5_6_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_6_3 Decimal?  @map("_5_6_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _5_6_4 Decimal?  @map("_5_6_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_1_2 Decimal?  @map("_6_1_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_1_3 Decimal?  @map("_6_1_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_1_4 Decimal?  @map("_6_1_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_1_5 Decimal?  @map("_6_1_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_2_1 Decimal?  @map("_6_2_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_2_3 Decimal?  @map("_6_2_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_2_4 Decimal?  @map("_6_2_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_2_5 Decimal?  @map("_6_2_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_3_1 Decimal?  @map("_6_3_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_3_2 Decimal?  @map("_6_3_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_3_4 Decimal?  @map("_6_3_4") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_3_5 Decimal?  @map("_6_3_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_4_1 Decimal?  @map("_6_4_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_4_2 Decimal?  @map("_6_4_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_4_3 Decimal?  @map("_6_4_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_4_5 Decimal?  @map("_6_4_5") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_5_1 Decimal?  @map("_6_5_1") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_5_2 Decimal?  @map("_6_5_2") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_5_3 Decimal?  @map("_6_5_3") @db.Decimal(10, 2)
+  // This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // _6_5_4 Decimal?  @map("_6_5_4") @db.Decimal(10, 2)
+
+  @@ignore
+}
+
+model race {
+  race_id               String    @id @db.VarChar(255)
+  race_date             DateTime? @db.Date
+  place_n               Int?
+  race_n                Int?
+  is_woman_race         Decimal?  @db.Decimal(10, 2)
+  sinnyu_method         String?   @db.VarChar(255)
+  race_grade            String?   @db.VarChar(255)
+  race_title            String?   @db.VarChar(255)
+  racer1_reg_n          Int?
+  racer1_rank           String?   @db.VarChar(255)
+  racer1_name           String?   @db.VarChar(255)
+  racer1_shibu          String?   @db.VarChar(255)
+  racer1_birth_place    String?   @db.VarChar(255)
+  racer1_age            Int?
+  racer1_weight         Decimal?  @db.Decimal(10, 2)
+  racer1_F              String?   @db.VarChar(255)
+  racer1_L              String?   @db.VarChar(255)
+  racer1_start_avg      Decimal?  @db.Decimal(10, 2)
+  racer1_win_all        Decimal?  @db.Decimal(10, 2)
+  racer1_win_2ren_all   Decimal?  @db.Decimal(10, 2)
+  racer1_win_3ren_all   Decimal?  @db.Decimal(10, 2)
+  racer1_win_local      Decimal?  @db.Decimal(10, 2)
+  racer1_win_2ren_local Decimal?  @db.Decimal(10, 2)
+  racer1_win_3ren_local Decimal?  @db.Decimal(10, 2)
+  motor1_reg_n          Int?
+  motor1_win_2ren       Decimal?  @db.Decimal(10, 2)
+  motor1_win_3ren       Decimal?  @db.Decimal(10, 2)
+  boat1_reg_n           Int?
+  boat1_win_2ren        Decimal?  @db.Decimal(10, 2)
+  boat1_win_3ren        Decimal?  @db.Decimal(10, 2)
+  racer2_reg_n          Int?
+  racer2_rank           String?   @db.VarChar(255)
+  racer2_name           String?   @db.VarChar(255)
+  racer2_shibu          String?   @db.VarChar(255)
+  racer2_birth_place    String?   @db.VarChar(255)
+  racer2_age            Int?
+  racer2_weight         Decimal?  @db.Decimal(10, 2)
+  racer2_F              String?   @db.VarChar(255)
+  racer2_L              String?   @db.VarChar(255)
+  racer2_start_avg      Decimal?  @db.Decimal(10, 2)
+  racer2_win_all        Decimal?  @db.Decimal(10, 2)
+  racer2_win_2ren_all   Decimal?  @db.Decimal(10, 2)
+  racer2_win_3ren_all   Decimal?  @db.Decimal(10, 2)
+  racer2_win_local      Decimal?  @db.Decimal(10, 2)
+  racer2_win_2ren_local Decimal?  @db.Decimal(10, 2)
+  racer2_win_3ren_local Decimal?  @db.Decimal(10, 2)
+  motor2_reg_n          Int?
+  motor2_win_2ren       Decimal?  @db.Decimal(10, 2)
+  motor2_win_3ren       Decimal?  @db.Decimal(10, 2)
+  boat2_reg_n           Int?
+  boat2_win_2ren        Decimal?  @db.Decimal(10, 2)
+  boat2_win_3ren        Decimal?  @db.Decimal(10, 2)
+  racer3_reg_n          Int?
+  racer3_rank           String?   @db.VarChar(255)
+  racer3_name           String?   @db.VarChar(255)
+  racer3_shibu          String?   @db.VarChar(255)
+  racer3_birth_place    String?   @db.VarChar(255)
+  racer3_age            Int?
+  racer3_weight         Decimal?  @db.Decimal(10, 2)
+  racer3_F              String?   @db.VarChar(255)
+  racer3_L              String?   @db.VarChar(255)
+  racer3_start_avg      Decimal?  @db.Decimal(10, 2)
+  racer3_win_all        Decimal?  @db.Decimal(10, 2)
+  racer3_win_2ren_all   Decimal?  @db.Decimal(10, 2)
+  racer3_win_3ren_all   Decimal?  @db.Decimal(10, 2)
+  racer3_win_local      Decimal?  @db.Decimal(10, 2)
+  racer3_win_2ren_local Decimal?  @db.Decimal(10, 2)
+  racer3_win_3ren_local Decimal?  @db.Decimal(10, 2)
+  motor3_reg_n          Int?
+  motor3_win_2ren       Decimal?  @db.Decimal(10, 2)
+  motor3_win_3ren       Decimal?  @db.Decimal(10, 2)
+  boat3_reg_n           Int?
+  boat3_win_2ren        Decimal?  @db.Decimal(10, 2)
+  boat3_win_3ren        Decimal?  @db.Decimal(10, 2)
+  racer4_reg_n          Int?
+  racer4_rank           String?   @db.VarChar(255)
+  racer4_name           String?   @db.VarChar(255)
+  racer4_shibu          String?   @db.VarChar(255)
+  racer4_birth_place    String?   @db.VarChar(255)
+  racer4_age            Int?
+  racer4_weight         Decimal?  @db.Decimal(10, 2)
+  racer4_F              String?   @db.VarChar(255)
+  racer4_L              String?   @db.VarChar(255)
+  racer4_start_avg      Decimal?  @db.Decimal(10, 2)
+  racer4_win_all        Decimal?  @db.Decimal(10, 2)
+  racer4_win_2ren_all   Decimal?  @db.Decimal(10, 2)
+  racer4_win_3ren_all   Decimal?  @db.Decimal(10, 2)
+  racer4_win_local      Decimal?  @db.Decimal(10, 2)
+  racer4_win_2ren_local Decimal?  @db.Decimal(10, 2)
+  racer4_win_3ren_local Decimal?  @db.Decimal(10, 2)
+  motor4_reg_n          Int?
+  motor4_win_2ren       Decimal?  @db.Decimal(10, 2)
+  motor4_win_3ren       Decimal?  @db.Decimal(10, 2)
+  boat4_reg_n           Int?
+  boat4_win_2ren        Decimal?  @db.Decimal(10, 2)
+  boat4_win_3ren        Decimal?  @db.Decimal(10, 2)
+  racer5_reg_n          Int?
+  racer5_rank           String?   @db.VarChar(255)
+  racer5_name           String?   @db.VarChar(255)
+  racer5_shibu          String?   @db.VarChar(255)
+  racer5_birth_place    String?   @db.VarChar(255)
+  racer5_age            Int?
+  racer5_weight         Decimal?  @db.Decimal(10, 2)
+  racer5_F              String?   @db.VarChar(255)
+  racer5_L              String?   @db.VarChar(255)
+  racer5_start_avg      Decimal?  @db.Decimal(10, 2)
+  racer5_win_all        Decimal?  @db.Decimal(10, 2)
+  racer5_win_2ren_all   Decimal?  @db.Decimal(10, 2)
+  racer5_win_3ren_all   Decimal?  @db.Decimal(10, 2)
+  racer5_win_local      Decimal?  @db.Decimal(10, 2)
+  racer5_win_2ren_local Decimal?  @db.Decimal(10, 2)
+  racer5_win_3ren_local Decimal?  @db.Decimal(10, 2)
+  motor5_reg_n          Int?
+  motor5_win_2ren       Decimal?  @db.Decimal(10, 2)
+  motor5_win_3ren       Decimal?  @db.Decimal(10, 2)
+  boat5_reg_n           Int?
+  boat5_win_2ren        Decimal?  @db.Decimal(10, 2)
+  boat5_win_3ren        Decimal?  @db.Decimal(10, 2)
+  racer6_reg_n          Int?
+  racer6_rank           String?   @db.VarChar(255)
+  racer6_name           String?   @db.VarChar(255)
+  racer6_shibu          String?   @db.VarChar(255)
+  racer6_birth_place    String?   @db.VarChar(255)
+  racer6_age            Int?
+  racer6_weight         Decimal?  @db.Decimal(10, 2)
+  racer6_F              String?   @db.VarChar(255)
+  racer6_L              String?   @db.VarChar(255)
+  racer6_start_avg      Decimal?  @db.Decimal(10, 2)
+  racer6_win_all        Decimal?  @db.Decimal(10, 2)
+  racer6_win_2ren_all   Decimal?  @db.Decimal(10, 2)
+  racer6_win_3ren_all   Decimal?  @db.Decimal(10, 2)
+  racer6_win_local      Decimal?  @db.Decimal(10, 2)
+  racer6_win_2ren_local Decimal?  @db.Decimal(10, 2)
+  racer6_win_3ren_local Decimal?  @db.Decimal(10, 2)
+  motor6_reg_n          Int?
+  motor6_win_2ren       Decimal?  @db.Decimal(10, 2)
+  motor6_win_3ren       Decimal?  @db.Decimal(10, 2)
+  boat6_reg_n           Int?
+  boat6_win_2ren        Decimal?  @db.Decimal(10, 2)
+  boat6_win_3ren        Decimal?  @db.Decimal(10, 2)
+}
+
+model race_before_info {
+  race_id                 String    @id @db.VarChar(255)
+  race_date               DateTime? @db.Date
+  place_n                 Int?
+  race_n                  Int?
+  is_anteiban             Int?
+  shukai_length           Decimal?  @db.Decimal(10, 2)
+  racer1_weight_before    Decimal?  @db.Decimal(10, 2)
+  racer1_weight_adjust    Decimal?  @db.Decimal(10, 2)
+  racer1_tenji_time       Decimal?  @db.Decimal(10, 2)
+  racer1_tenji_rank       Decimal?  @db.Decimal(10, 2)
+  racer1_tilt             Decimal?  @db.Decimal(10, 2)
+  racer1_pera             String?   @db.VarChar(255)
+  racer1_parts_exchange   String?   @db.VarChar(255)
+  racer1_start_sinnyu     Decimal?  @db.Decimal(10, 2)
+  racer1_start_tenji_time Decimal?  @db.Decimal(10, 2)
+  racer1_start_tenji_rank Decimal?  @db.Decimal(10, 2)
+  racer2_weight_before    Decimal?  @db.Decimal(10, 2)
+  racer2_weight_adjust    Decimal?  @db.Decimal(10, 2)
+  racer2_tenji_time       Decimal?  @db.Decimal(10, 2)
+  racer2_tenji_rank       Decimal?  @db.Decimal(10, 2)
+  racer2_tilt             Decimal?  @db.Decimal(10, 2)
+  racer2_pera             String?   @db.VarChar(255)
+  racer2_parts_exchange   String?   @db.VarChar(255)
+  racer2_start_sinnyu     Decimal?  @db.Decimal(10, 2)
+  racer2_start_tenji_time Decimal?  @db.Decimal(10, 2)
+  racer2_start_tenji_rank Decimal?  @db.Decimal(10, 2)
+  racer3_weight_before    Decimal?  @db.Decimal(10, 2)
+  racer3_weight_adjust    Decimal?  @db.Decimal(10, 2)
+  racer3_tenji_time       Decimal?  @db.Decimal(10, 2)
+  racer3_tenji_rank       Decimal?  @db.Decimal(10, 2)
+  racer3_tilt             Decimal?  @db.Decimal(10, 2)
+  racer3_pera             String?   @db.VarChar(255)
+  racer3_parts_exchange   String?   @db.VarChar(255)
+  racer3_start_sinnyu     Decimal?  @db.Decimal(10, 2)
+  racer3_start_tenji_time Decimal?  @db.Decimal(10, 2)
+  racer3_start_tenji_rank Decimal?  @db.Decimal(10, 2)
+  racer4_weight_before    Decimal?  @db.Decimal(10, 2)
+  racer4_weight_adjust    Decimal?  @db.Decimal(10, 2)
+  racer4_tenji_time       Decimal?  @db.Decimal(10, 2)
+  racer4_tenji_rank       Decimal?  @db.Decimal(10, 2)
+  racer4_tilt             Decimal?  @db.Decimal(10, 2)
+  racer4_pera             String?   @db.VarChar(255)
+  racer4_parts_exchange   String?   @db.VarChar(255)
+  racer4_start_sinnyu     Decimal?  @db.Decimal(10, 2)
+  racer4_start_tenji_time Decimal?  @db.Decimal(10, 2)
+  racer4_start_tenji_rank Decimal?  @db.Decimal(10, 2)
+  racer5_weight_before    Decimal?  @db.Decimal(10, 2)
+  racer5_weight_adjust    Decimal?  @db.Decimal(10, 2)
+  racer5_tenji_time       Decimal?  @db.Decimal(10, 2)
+  racer5_tenji_rank       Decimal?  @db.Decimal(10, 2)
+  racer5_tilt             Decimal?  @db.Decimal(10, 2)
+  racer5_pera             String?   @db.VarChar(255)
+  racer5_parts_exchange   String?   @db.VarChar(255)
+  racer5_start_sinnyu     Decimal?  @db.Decimal(10, 2)
+  racer5_start_tenji_time Decimal?  @db.Decimal(10, 2)
+  racer5_start_tenji_rank Decimal?  @db.Decimal(10, 2)
+  racer6_weight_before    Decimal?  @db.Decimal(10, 2)
+  racer6_weight_adjust    Decimal?  @db.Decimal(10, 2)
+  racer6_tenji_time       Decimal?  @db.Decimal(10, 2)
+  racer6_tenji_rank       Decimal?  @db.Decimal(10, 2)
+  racer6_tilt             Decimal?  @db.Decimal(10, 2)
+  racer6_pera             String?   @db.VarChar(255)
+  racer6_parts_exchange   String?   @db.VarChar(255)
+  racer6_start_sinnyu     Decimal?  @db.Decimal(10, 2)
+  racer6_start_tenji_time Decimal?  @db.Decimal(10, 2)
+  racer6_start_tenji_rank Decimal?  @db.Decimal(10, 2)
+  before_degree           Decimal?  @db.Decimal(10, 2)
+  before_weather          String?   @db.VarChar(255)
+  before_wind_speed       Decimal?  @db.Decimal(10, 2)
+  before_wind_direction   Decimal?  @db.Decimal(10, 2)
+  before_water_degree     Decimal?  @db.Decimal(10, 2)
+  before_wave_height      Decimal?  @db.Decimal(10, 2)
+  is_ketsujo              Decimal?  @db.Decimal(10, 2)
+}
+
+model race_result {
+  race_id                      String    @id @db.VarChar(255)
+  race_date                    DateTime? @db.Date
+  place_n                      Int?
+  race_n                       Int?
+  is_ketsujo                   String?   @db.VarChar(255)
+  is_suspended                 String?   @db.VarChar(255)
+  result_chaku_1               Decimal?  @db.Decimal(10, 2)
+  result_chaku_2               Decimal?  @db.Decimal(10, 2)
+  result_chaku_3               Decimal?  @db.Decimal(10, 2)
+  result_chaku_4               Decimal?  @db.Decimal(10, 2)
+  result_chaku_5               Decimal?  @db.Decimal(10, 2)
+  result_chaku_6               Decimal?  @db.Decimal(10, 2)
+  result_payout_3t_1           Decimal?  @db.Decimal(10, 2)
+  result_payout_3f_1           Decimal?  @db.Decimal(10, 2)
+  result_payout_2t_1           Decimal?  @db.Decimal(10, 2)
+  result_payout_2f_1           Decimal?  @db.Decimal(10, 2)
+  result_payout_w_1            Decimal?  @db.Decimal(10, 2)
+  result_payout_1t_1           Decimal?  @db.Decimal(10, 2)
+  result_payout_1f_1           Decimal?  @db.Decimal(10, 2)
+  result_payout_3t_2           Decimal?  @db.Decimal(10, 2)
+  result_payout_3f_2           Decimal?  @db.Decimal(10, 2)
+  result_payout_2t_2           Decimal?  @db.Decimal(10, 2)
+  result_payout_2f_2           Decimal?  @db.Decimal(10, 2)
+  result_payout_w_2            Decimal?  @db.Decimal(10, 2)
+  result_payout_1t_2           Decimal?  @db.Decimal(10, 2)
+  result_payout_1f_2           Decimal?  @db.Decimal(10, 2)
+  result_payout_w_3            Decimal?  @db.Decimal(10, 2)
+  result_payout_1f_3           Decimal?  @db.Decimal(10, 2)
+  result_payout_w_4            Decimal?  @db.Decimal(10, 2)
+  result_payout_w_5            Decimal?  @db.Decimal(10, 2)
+  win_method                   String?   @db.VarChar(255)
+  bikou                        String?   @db.VarChar(255)
+  weather_degree               Decimal?  @db.Decimal(10, 2)
+  weather                      String?   @db.VarChar(255)
+  wind_speed                   Decimal?  @db.Decimal(10, 2)
+  wind_direction               Decimal?  @db.Decimal(10, 2)
+  water_degree                 Decimal?  @db.Decimal(10, 2)
+  wave_height                  Decimal?  @db.Decimal(10, 2)
+  result_chaku_racer_1         Decimal?  @db.Decimal(10, 2)
+  result_time_racer_1          Decimal?  @db.Decimal(10, 2)
+  result_start_sinnyu_racer_1  Decimal?  @db.Decimal(10, 2)
+  result_start_time_racer_1    Decimal?  @db.Decimal(10, 2)
+  result_start_flying_racer_1  Decimal?  @db.Decimal(10, 2)
+  result_start_deokure_racer_1 Decimal?  @db.Decimal(10, 2)
+  result_win_method_racer_1    String?   @db.VarChar(255)
+  result_henkan_racer_1        Decimal?  @db.Decimal(10, 2)
+  result_chaku_racer_2         Decimal?  @db.Decimal(10, 2)
+  result_time_racer_2          Decimal?  @db.Decimal(10, 2)
+  result_start_sinnyu_racer_2  Decimal?  @db.Decimal(10, 2)
+  result_start_time_racer_2    Decimal?  @db.Decimal(10, 2)
+  result_start_flying_racer_2  Decimal?  @db.Decimal(10, 2)
+  result_start_deokure_racer_2 Decimal?  @db.Decimal(10, 2)
+  result_win_method_racer_2    String?   @db.VarChar(255)
+  result_henkan_racer_2        Decimal?  @db.Decimal(10, 2)
+  result_chaku_racer_3         Decimal?  @db.Decimal(10, 2)
+  result_time_racer_3          Decimal?  @db.Decimal(10, 2)
+  result_start_sinnyu_racer_3  Decimal?  @db.Decimal(10, 2)
+  result_start_time_racer_3    Decimal?  @db.Decimal(10, 2)
+  result_start_flying_racer_3  Decimal?  @db.Decimal(10, 2)
+  result_start_deokure_racer_3 Decimal?  @db.Decimal(10, 2)
+  result_win_method_racer_3    String?   @db.VarChar(255)
+  result_henkan_racer_3        Decimal?  @db.Decimal(10, 2)
+  result_chaku_racer_4         Decimal?  @db.Decimal(10, 2)
+  result_time_racer_4          Decimal?  @db.Decimal(10, 2)
+  result_start_sinnyu_racer_4  Decimal?  @db.Decimal(10, 2)
+  result_start_time_racer_4    Decimal?  @db.Decimal(10, 2)
+  result_start_flying_racer_4  Decimal?  @db.Decimal(10, 2)
+  result_start_deokure_racer_4 Decimal?  @db.Decimal(10, 2)
+  result_win_method_racer_4    String?   @db.VarChar(255)
+  result_henkan_racer_4        Decimal?  @db.Decimal(10, 2)
+  result_chaku_racer_5         Decimal?  @db.Decimal(10, 2)
+  result_time_racer_5          Decimal?  @db.Decimal(10, 2)
+  result_start_sinnyu_racer_5  Decimal?  @db.Decimal(10, 2)
+  result_start_time_racer_5    Decimal?  @db.Decimal(10, 2)
+  result_start_flying_racer_5  Decimal?  @db.Decimal(10, 2)
+  result_start_deokure_racer_5 Decimal?  @db.Decimal(10, 2)
+  result_win_method_racer_5    String?   @db.VarChar(255)
+  result_henkan_racer_5        Decimal?  @db.Decimal(10, 2)
+  result_chaku_racer_6         Decimal?  @db.Decimal(10, 2)
+  result_time_racer_6          Decimal?  @db.Decimal(10, 2)
+  result_start_sinnyu_racer_6  Decimal?  @db.Decimal(10, 2)
+  result_start_time_racer_6    Decimal?  @db.Decimal(10, 2)
+  result_start_flying_racer_6  Decimal?  @db.Decimal(10, 2)
+  result_start_deokure_racer_6 Decimal?  @db.Decimal(10, 2)
+  result_win_method_racer_6    String?   @db.VarChar(255)
+  result_henkan_racer_6        Decimal?  @db.Decimal(10, 2)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model zenken_motor {
+  race_date   DateTime? @db.Date
+  place_n     Int?
+  reg_n       Int?
+  racer_name  String?   @db.VarChar(255)
+  racer_rank  String?   @db.VarChar(255)
+  motor_n     Int?
+  motor_2ren  Decimal?  @db.Decimal(10, 2)
+  boat_n      Int?
+  boat_2ren   Decimal?  @db.Decimal(10, 2)
+  zenken_time Decimal?  @db.Decimal(10, 2)
+
+  @@ignore
+}
