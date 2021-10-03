@@ -141,6 +141,14 @@ sudachidict_core = ">=20210608"
 sudachipy = ">=0.5.2,<0.6.0"
 
 [[package]]
+name = "ja-sentence-segmenter"
+version = "0.0.2"
+description = "sentence segmenter for japanese text"
+category = "main"
+optional = false
+python-versions = ">=3.6,<4.0"
+
+[[package]]
 name = "jinja2"
 version = "3.0.1"
 description = "A very fast and expressive template engine."
@@ -581,7 +589,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "b1903f86b43bedcc56ea64155a3e0e360c4071f2f5ca342080ae1208f8b78c98"
+content-hash = "f88a30a739e130231eb082d977805d304ab832126eba167b0e4876b402b7a00b"
 
 [metadata.files]
 atomicwrites = [
@@ -710,6 +718,10 @@ idna = [
 ]
 ja-ginza = [
     {file = "ja_ginza-5.0.0.tar.gz", hash = "sha256:fe6580f54b4b4810ddfcd619b8e91705408cf840e55a6f6435c995f9ea7b0ee8"},
+]
+ja-sentence-segmenter = [
+    {file = "ja_sentence_segmenter-0.0.2-py3-none-any.whl", hash = "sha256:237d99e79f9fe0e858310c088d9fb7d74e765954769ae6473197a0bd5ace4edb"},
+    {file = "ja_sentence_segmenter-0.0.2.tar.gz", hash = "sha256:caa373b504ff3f906688ac9cb9a761935a84e03c20d2a9741cfcb4f778859e35"},
 ]
 jinja2 = [
     {file = "Jinja2-3.0.1-py3-none-any.whl", hash = "sha256:1f06f2da51e7b56b8f238affdd6b4e2c61e39598a378cc49345bc1bd42a978a4"},

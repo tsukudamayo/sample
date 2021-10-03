@@ -1,3 +1,6 @@
+import csv
+import fileinput
+import functools
 import gc
 import os
 import time
@@ -6,6 +9,10 @@ import numpy as np
 import pandas as pd
 
 import spacy
+from ja_sentence_segmenter.common.pipeline import make_pipeline
+from ja_sentence_segmenter.concatenate.simple_concatenator import concatenate_matching
+from ja_sentence_segmenter.normalize.neologd_normalizer import normalize
+from ja_sentence_segmenter.split.simple_splitter import split_newline, split_punctuation
 
 
 DATA_DIR = "../../../../data"
@@ -17,7 +24,7 @@ MAX_SENTENCE_LEN = 1000
 DEFAULT_COL_DELIMITER = '\t'
 
 
-def load_dataset() -> pd.DataFrame:
+def load_dataset(data_filepath: str, documents_filepath: str) -> pd.DataFrame:
     start = time.time()
     df_url = pd.read_csv(
         data_filepath,
@@ -38,6 +45,7 @@ def load_dataset() -> pd.DataFrame:
     )
 
     del df_url
+    gc.collect()
     
     return
 
@@ -47,7 +55,9 @@ def fetch_url_index(documents_filepath: pd.DataFrame) -> np.ndarray:
         documents_filepath,
         delimiter="\t",
         names=["label", "url", "status", "doc", "title", "meta:keyword", "meta:description"],
+        header=0,
     )
+    print(df.head())
     return df.index.values
 
 
@@ -71,6 +81,7 @@ def extract_all(inputpath,
                 text_id, # add tsukuda
                 delim=DEFAULT_COL_DELIMITER,
                 min_len=MIN_SENTENCE_LEN, max_len=MAX_SENTENCE_LEN):
+
     with fileinput.input(inputpath) as f:
 
         # This workaround(csv.field_size_limit(1000000000)) is
@@ -79,7 +90,7 @@ def extract_all(inputpath,
         csv_rows = csv.reader(f, delimiter=delim)
 #        print("tracemalloc")
 #        snapshot1 = tracemalloc.take_snapshot()
-#        start = time.time()
+        start = time.time()
         with open(outputpath, "w", encoding="utf-8") as w:
             w.write("\"text\"\t\"text_id\"\t\"url\"\n")
             next(csv_rows)
@@ -105,9 +116,46 @@ def extract_all(inputpath,
                         if not sentence: # ignore empty line
                             continue                        
                         w.write("\"" + str(sentence) + "\"\t" + "\"" + str(idx) + "\"" + "\n")
+            end = time.time()
+            print("finish : ", end - start)
 
 
+def extract_sentences(nlp, text: str):
+    try:
+        if type(nlp) == spacy.lang.ja.Japanese:
+            doc = nlp(text)
+            return doc.sents
+        else:
+            return nlp(text)
+    except MemoryError:
+        print("MemoryError")
+        print(text)
+        return []
+    except ValueError as e:
+        print("ValueError")
+        print(text)
+        return []    
 
+
+def compare_spacy_jaseg(
+    sentences_filepath_spacy: str,
+    sentences_filepath_jaseg: str,
+):
+
+    df_spacy = pd.read_csv(
+        os.path.join(DATA_DIR, "sentences_docs_all_valuecommerce_20210901_200_spacy.tsv"),
+        delimiter="\t",
+        header=0,
+    )
+
+    df_jaseg = pd.read_csv(
+        senteces_filepath_jaseg,
+        delimiter="\t",
+        header=0,
+    )
+
+    print(df_spacy)
+    print(df_jaseg)
 
 
 def main():
@@ -120,20 +168,32 @@ def main():
         DATA_DIR,  "sbd_" + TEST_FILENAME + "_200" + "_jaseg" + TEST_FILEEXT
     )
     load_dataset(data_filepath, documents_filepath)
-    
+
     text_id = fetch_url_index(documents_filepath)
     print(text_id)
+
+    # spacy 
     nlp = spacy.load("ja_ginza", exclude=["ner"])
-    start = time.time()
-    extract_all(
-        documents_filepath,
-        nlp,
+
+    # # ja_segmenter
+    # split_punc2 = functools.partial(split_punctuation, punctuations=r"。!?")
+    # concat_tail_no = functools.partial(concatenate_matching, former_matching_rule=r"^(?P<result>.+)(の)$", remove_former_matched=False)
+    # nlp = make_pipeline(normalize, split_newline, concat_tail_no, split_punc2)
+
+    print(type(nlp))
+
+    # extract_all(
+    #     documents_filepath,
+    #     nlp,
+    #     sentences_filepath_jaseg,
+    #     text_id,
+    # )
+
+    compare_spacy_jaseg(
         sentences_filepath_spacy,
-        text_id,
+        sentences_filepath_jaseg,
     )
 
 
 if __name__ == "__main__":
     main()
-
-
