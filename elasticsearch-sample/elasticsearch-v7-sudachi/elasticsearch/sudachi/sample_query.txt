@@ -1,0 +1,37 @@
+PUT /sample-index
+{
+  "settings": {
+    "number_of_shards": 1,
+    "analysis": {
+      "analyzer": {
+        "sudachi_analyzer": {
+          "type": "custom",
+          "tokenizer": "sudachi_tokenizer"
+        }
+      },
+      "tokenizer": {
+        "sudachi_tokenizer": {
+          "type": "sudachi_tokenizer",
+          "SudachiSplitFilter": "a",
+          "discard_punctuation": true,
+          "resources_path": "/usr/share/elasticsearch/config/sudachi/",
+          "settings_path": "/usr/share/elasticsearch/config/sudachi/sudachi.json"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "text": {
+        "type": "text",
+        "analyzer": "sudachi_analyzer"
+      }
+    }
+  }
+}
+
+POST sample-index/_analyze
+{
+  "analyzer": "sudachi_analyzer",
+  "text": "PCR検査"
+}
