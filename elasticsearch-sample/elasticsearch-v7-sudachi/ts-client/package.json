@@ -1,0 +1,9 @@
+{
+  "name": "workspace",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript-eslint-language-service": "^5.0.0"
+  }
+}
