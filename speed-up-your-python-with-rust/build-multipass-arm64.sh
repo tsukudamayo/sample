@@ -2,7 +2,7 @@
 
 export DOCKER_BUILDKIT=1
 
-docker build -t speed-up-your-python-with-rust -f dev.arm64.Dockerfile .
+docker build -t rust-python311-dev -f dev.arm64.Dockerfile .
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     xhost +$(multipass list | grep docker-vm | awk '{print $3}')
