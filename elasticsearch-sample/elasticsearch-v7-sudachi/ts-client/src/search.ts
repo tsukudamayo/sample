@@ -13,8 +13,8 @@ const client = new Client({
 });
 
 interface Document {
-  url: string
-  raw_body: string
+  post_id: string
+  post_discourse: string
 }
 
 async function run() {
@@ -32,10 +32,33 @@ async function run() {
     }
   });
 
-  // console.log(result.hits.hits);
-  console.log(result.hits.hits);
-  console.log(result.hits.hits.length);
   fs.writeFileSync("output.json", JSON.stringify(result.hits.hits, null, 4), "utf8");
 };
 
 run();
+
+async function runAllQuery() {
+  let results = [];
+  const dataStr: string = fs.readFileSync("data/fij-post_id-post_discourse/fij-post_id-post_discourse.jsonl", "utf-8");
+  const lines: string[] = dataStr.split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    try {
+      // parse JSON data
+      console.log(i);
+      const doc: Document = JSON.parse(lines[i]);
+      const result = await client.search<Document>({
+	index: index,
+	size: 100,
+	query: {
+	  match: { raw_body: doc.post_discourse }
+	}
+      });
+      results.push(result.hits.hits);
+    } catch(e) {
+      console.log(e);
+    }
+  }
+  fs.writeFileSync("output_all_query.json", JSON.stringify(results, null, 4), "utf8");
+}
+
+runAllQuery();

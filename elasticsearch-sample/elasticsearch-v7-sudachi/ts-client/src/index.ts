@@ -2,7 +2,7 @@ import fs from 'fs';
 
 import { Client } from '@elastic/elasticsearch';
 
-const index = "sample-like-vaccine_20220315_2";
+const index = "sample-like-vaccine_20220315_3";
 
 const client = new Client({
   node: "http://192.168.64.6:9200",
@@ -17,32 +17,12 @@ interface Document {
   raw_body: string
 }
 
-async function run() {
-  console.log("hello");
-  // await client.index({
-  //   index: "game-of-thrones",
-  //   document: {
-  //     character: "Ne Stark",
-  //     quote: "Winter is comin.",
-  //   }
-  // });
+interface FIJ {
+  post_id: number
+  post_discourse: string
+}
 
-  // await client.index({
-  //   index: "game-of-thrones",
-  //   document: {
-  //     character: "Daenery Targaryen",
-  //     quote: "I am the bloo of the dragon.",
-  //   }
-  // });
-
-  // await client.index({
-  //   index: "game-of-thrones",
-  //   document: {
-  //     character: "Tyrio Lannister",
-  //     quote: "A mind needs books lik a sword needs a whetstone.",
-  //   }
-  // });
-  
+async function crawlDocsToIndex() {
   const dataDir: string[] = fs.readdirSync("./data/crawl-docs-url-raw_body-like-vaccine_20220315/")
 
   for (let i = 0; i < dataDir.length; i++) {
@@ -61,7 +41,8 @@ async function run() {
 	  document: {
 	    url: doc.url,
 	    raw_body: doc.raw_body,
-	  }
+	  },
+	  id: "crawl_docs_" + String(j)
 	});
       } catch (e) {
 	console.log(e);
@@ -75,4 +56,34 @@ async function run() {
   await client.indices.refresh({ index: index });
 }
 
-run().catch(console.log);
+async function fijToIndex() {
+  const dataStr: string = fs.readFileSync("data/fij-post_id-post_discourse/fij-post_id-post_discourse.jsonl", "utf-8");
+  const lines: string[] = dataStr.split("\n");
+  for (let j = 0; j < lines.length; j++) {
+    try {
+      // parse JSON data
+      console.log(j);
+      const doc: FIJ = JSON.parse(lines[j]);
+      // create client.index
+      await client.index({
+	index: index,
+	document: {
+	  url: doc.post_id,
+	  raw_body: doc.post_discourse,
+	},
+	id: "fij_" + String(j)
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+crawlDocsToIndex().catch(console.log);
+fijToIndex().catch(console.log);
+
+
+
+
+
+
