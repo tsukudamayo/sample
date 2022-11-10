@@ -2,10 +2,10 @@ import fs from "fs";
 
 import { Client } from "@elastic/elasticsearch";
 
-const index = "sample-like-vaccine_20220315_3";
+const index = "sample-like-vacchine-sudachi-tokenizer-20220315";
 
 const client = new Client({
-  node: "http://192.168.64.6:9200",
+  node: "http://192.168.64.2:9200",
   auth: {
     username: "elastic",
     password: "elastic",
@@ -125,7 +125,9 @@ async function generateRequestPrecisionK() {
     results.push(result);
   }
 
-  fs.writeFileSync("output_all_eval_query.json", JSON.stringify(results, null, 4), "utf8");
+  // fs.writeFileSync("output_all_eval_query.json", JSON.stringify(results, null, 4), "utf8");
+  // fs.writeFileSync("output_all_eval_query_ngram.json", JSON.stringify(results, null, 4), "utf8");
+  fs.writeFileSync("output_all_eval_query_sudachi.json", JSON.stringify(results, null, 4), "utf8");
 }
 
 generateRequestPrecisionK();

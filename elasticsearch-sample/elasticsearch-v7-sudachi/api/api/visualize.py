@@ -2,6 +2,10 @@ from typing import List
 import json
 
 import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+RANK_EVAL_SCORE_FILE = "data/output/output_all_eval_query_ngram.json"
 
 
 def select_some_fij_dataset() -> None:
@@ -17,7 +21,7 @@ def select_some_fij_dataset() -> None:
 
 class EvaluationByES:    
     def __init__(self) -> None:
-        result_data_file = "data/output//output_all_query.json"
+        result_data_file = RANK_EVAL_SCORE_FILE
         with open(result_data_file, "r", encoding="utf-8") as r:
             self.result_data = json.load(r)
 
@@ -35,6 +39,8 @@ def _aggregate_score(result: EvaluationByES) -> List[float]:
         scores.append(tmp_scores)
     
     return scores
+
+
 
 def main():
     result = EvaluationByES()

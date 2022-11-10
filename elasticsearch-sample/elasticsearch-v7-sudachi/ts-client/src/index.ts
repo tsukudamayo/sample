@@ -2,10 +2,10 @@ import fs from 'fs';
 
 import { Client } from '@elastic/elasticsearch';
 
-const index = "sample-like-vaccine_20220315_3";
+const index = "sample-like-vacchine-bigram-tokenizer-20220315";
 
 const client = new Client({
-  node: "http://192.168.64.6:9200",
+  node: "http://192.168.64.2:9200",
   auth: {
     username: "elastic",
     password: "elastic",
@@ -81,9 +81,3 @@ async function fijToIndex() {
 
 crawlDocsToIndex().catch(console.log);
 fijToIndex().catch(console.log);
-
-
-
-
-
-

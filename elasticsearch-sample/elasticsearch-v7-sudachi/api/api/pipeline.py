@@ -1,13 +1,19 @@
 from typing import List, Dict, Tuple
 import json
 
-import matplotlib.pyplot as plt
+
+RANK_EVAL_SCORE_FILE = "data/output/output_all_eval_query_ngram.json"
+TARGET_QUERY_SCORE_OUTPUT = "target_query_and_score.json"
 
 
 class EvaluationByES:    
-    def __init__(self) -> None:
-        result_data_file = "data/output/output_all_eval_query.json"
-        with open(result_data_file, "r", encoding="utf-8") as r:
+    def __init__(
+        self,
+        rank_eval_score_file,
+        target_query_score_output_file,
+    ) -> None:
+        self.target_query_score_output_file = target_query_score_output_file
+        with open(rank_eval_score_file, "r", encoding="utf-8") as r:
             self.result_data = json.load(r)
 
     def fetch_all_details(self) -> List[Dict]:
@@ -60,7 +66,7 @@ class EvaluationByES:
             count += 1
         print("count: ", count)
         print(count/651.0)
-        with open("target_query_and_score.json", "w", encoding="utf-8") as w:
+        with open(self.target_query_score_output_file, "w", encoding="utf-8") as w:
             json.dump(output, w, ensure_ascii=False, indent=4)
 
         return output
@@ -77,8 +83,8 @@ class FIJ:
 
                 
 class DataLoader:
-    def __init__(self) -> None:
-        with open("target_query_and_score.json", encoding="utf-8") as r:
+    def __init__(self, target_query_score_output_file) -> None:
+        with open(target_query_score_output_file, encoding="utf-8") as r:
             self.query_and_score = json.load(r)
 
     def aggregate_score_url_by_post_id(self, eval_es: EvaluationByES) -> List:
@@ -127,13 +133,13 @@ class DataLoader:
         with open("urls_id_list.json", "w", encoding="utf-8") as w:
             json.dump(url_id_list, w, ensure_ascii=False, indent=4)
 
-            
+
+# TODO integretion ESEvaluate Class
 def fetch_hit_data_by_post_id(target: str) -> Dict:
-    with open("data/output/output_all_eval_query.json", "r", encoding="utf-8") as r:
+    with open(rank_eval_score_file, "r", encoding="utf-8") as r:
         output = json.load(r)
     id_score_map = {}
     for o in output:
-        print(o)
         details = o["details"]
         post_id = list(details.keys())[0]
         if post_id == target:
@@ -147,17 +153,72 @@ def fetch_hit_data_by_post_id(target: str) -> Dict:
 
 def fetch_hit_crawl_docs_data(id_score_map: Dict) -> List:
     crawl_docs = []
-    with open("id_url_raw_body.json", "r", encoding="utf-8") as r:
+    with open("data/fij-post_id-post_discourse/id_url_raw_body.json", "r", encoding="utf-8") as r:
         id_url_raw_bodys = json.load(r)
 
     ids_set = set(id_score_map.keys())
     for id_url_raw_body in id_url_raw_bodys:
         if id_url_raw_body["id"] in ids_set:
-            print(id_url_raw_body["doc"])
             id_url_raw_body["score"] = id_score_map[id_url_raw_body["id"]]
             crawl_docs.append(id_url_raw_body)
 
     return crawl_docs
+
+
+def aggregate_score_by_post_id(target: str, rank_eval_score_file: str) -> List[float]:
+    with open(rank_eval_score_file, "r", encoding="utf-8") as r:
+        output = json.load(r)
+    scores = []
+    for o in output:
+        details = o["details"]
+        post_id = list(details.keys())[0]
+        if post_id == target:
+            for idx, hit in enumerate(details[post_id]["hits"]):
+                if idx == 0:
+                    continue
+                element = hit["hit"]
+                score = element["_score"]
+                scores.append(score)
+            break
+
+    return scores
+
+
+def parse_annotation_relevant_vacchine_or_not() -> List[List[str]]:
+    annotations = []
+    with open(
+        "data/annotation/annotation_query_relevant_covid19_or_not.csv",
+        "r",
+        encoding="utf-8",
+    ) as r:
+        lines = r.readlines()
+        for line in lines:
+            line = line.strip()
+            annotation = line.split(",")
+            annotations.append(annotation)
+
+    return annotations
+
+
+def split_query_evaluation_data_relevant_vacchine_or_not(annotations: List) -> Dict:
+    vacchine_query, not_vacchine_query = [], []
+    vacchine_query_scores, not_vacchine_query_scores = [], []
+    for annotation in annotations:
+        if annotation[1] == "1":
+            vacchine_query.append(annotation[0])
+            vacchine_query_scores.append(aggregate_score_by_post_id(annotation[0]))
+        elif annotation[1] == "0":
+            not_vacchine_query.append(annotation[0])
+            not_vacchine_query_scores.append(aggregate_score_by_post_id(annotation[0]))
+        else:
+            raise ValueError("something wrong")
+
+    return {
+        "vacchine_query": vacchine_query,
+        "vacchine_query_scores": vacchine_query_scores,
+        "not_vacchine_query": not_vacchine_query,
+        "not_vacchine_query_scores": not_vacchine_query_scores,
+    }
 
 
 def main():
