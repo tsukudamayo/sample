@@ -1,8 +1,10 @@
-# FROM debian:bullseye 
 FROM rust:slim-bullseye
 
 ENV HOME /home
 ENV PATH $PATH:$HOME/.cargo/bin
+ENV PATH $PATH:$HOME/.local/bin
+ENV PYTHON_VERSION 3.11.0 
+ENV RUST_ANALYZER_VERSION 2022-11-21
 
 WORKDIR /home
 
@@ -19,15 +21,15 @@ RUN apt update \
     && rustup update \
     && rustup component add rustfmt clippy rls rust-analysis rust-src  \
     && mkdir -p ~/.cargo/bin \
-    && curl -L https://github.com/rust-lang/rust-analyzer/releases/download/2022-07-04/rust-analyzer-aarch64-unknown-linux-gnu.gz | gunzip -c - > ~/.cargo/bin/rust-analyzer \
+    && curl -L https://github.com/rust-lang/rust-analyzer/releases/download/${RUST_ANALYZER_VERSION}/rust-analyzer-aarch64-unknown-linux-gnu.gz | gunzip -c - > ~/.cargo/bin/rust-analyzer \
     && chmod +x ~/.cargo/bin/rust-analyzer \ 
     && cargo install cargo-edit \
-    && wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0rc1.tgz \
-    && tar -xf Python-3.11.0rc1.tgz \
+    && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
+    && tar -xf Python-${PYTHON_VERSION}.tgz \
     && rm -rf /var/lib/apt/lists/*
 
 # build python
-WORKDIR /home/Python-3.11.0rc1
+WORKDIR /home/Python-${PYTHON_VERSION}
 RUN apt update && apt install -y zlib1g-dev \
     libncurses5-dev \
     libgdbm-dev \
@@ -42,6 +44,7 @@ RUN apt update && apt install -y zlib1g-dev \
     && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt install -y nodejs \
     && pip3 install python-lsp-server pyright \
+    && curl -sSL https://install.python-poetry.org | python3 - \
     && ln -sf /usr/local/bin/python3 /usr/local/bin/python \
     && ln -sf /usr/local/bin/pip3 /usr/local/bin/pip \
     && rm -rf /var/lib/apt/lists/*
@@ -49,5 +52,3 @@ RUN apt update && apt install -y zlib1g-dev \
 WORKDIR /workspace
 
 CMD ["/bin/bash"]
-# XXX USER
-# emacs -nw --user ''

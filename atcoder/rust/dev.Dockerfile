@@ -1,4 +1,3 @@
-# FROM debian:bullseye 
 FROM rust:slim-bullseye
 
 ENV HOME /home
@@ -32,5 +31,3 @@ RUN apt-get update \
 WORKDIR /workspace
 
 CMD ["/bin/bash"]
-# XXX USER
-# emacs -nw --user ''
