@@ -1,12 +1,14 @@
-use std::time;
+use sample::SSP;
 
 fn main() {
-    let mut fibonacci = sample::Fibonacci {
-	memo: vec![None; 51],
+    let _subset = vec![3, 2, 6, 5];
+    let _target = 14;
+    let _depth = _subset.len();
+    let mut subset_sum_problem = SSP {
+	subset: _subset,
     };
+
+    println!("{}", subset_sum_problem.calc(_depth, _target));
     
-    let now = time::Instant::now();
-    println!("{:?}", fibonacci.calc(50));
-    println!("{:?}",now.elapsed());
 }
 

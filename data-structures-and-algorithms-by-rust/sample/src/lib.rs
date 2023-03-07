@@ -20,11 +20,35 @@ impl Fibonacci {
     }
 }
 
+pub struct SSP {
+    pub subset: Vec<i64>,
+}
+
+impl SSP {
+    pub fn calc(&mut self, _d: usize, _t: i64) -> bool {
+	match _d {
+	    0 => {
+		match _t {
+		    0 => true,
+		    _ => false,
+		}
+	    },
+	    _ => {
+		match self.calc(_d - 1, _t) {
+		    true => true,
+		    false => self.calc(_d - 1, _t - self.subset[_d - 1]),
+		}
+	    },
+	}
+    }
+}
+
+
 #[cfg(test)]
 mod tests {
     use std::time;
 
-    use crate::Fibonacci;
+    use crate::{Fibonacci, SSP};
 
     #[test]
     fn test_calc_fibonacci() {
@@ -51,5 +75,17 @@ mod tests {
 	let res = fibonacci.calc(50);
 	println!("{:?}",now.elapsed());
 	assert_eq!(res, 12586269025);
+    }
+
+    #[test]
+    fn test_calc_ssp() {
+	let _subset = vec![3, 2, 6, 5];
+	let _target = 14;
+	let _depth = _subset.len();
+	let mut subset_sum_problem = SSP {
+	    subset: _subset,
+	};
+	let res = subset_sum_problem.calc(_depth, _target);
+	assert_eq!(res, true);
     }
 }
