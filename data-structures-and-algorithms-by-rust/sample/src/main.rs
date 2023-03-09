@@ -1,14 +1,14 @@
-use sample::SSP;
+use sample::Frog;
 
 fn main() {
-    let _subset = vec![3, 2, 6, 5];
-    let _target = 14;
-    let _depth = _subset.len();
-    let mut subset_sum_problem = SSP {
-	subset: _subset,
+    let _hights = vec![2, 9, 4, 5, 1, 6, 10];
+    let length = _hights.len();
+    let mut frog = Frog {
+	costs: vec![0; length],
+	hights: _hights,
     };
 
-    println!("{}", subset_sum_problem.calc(_depth, _target));
-    
+    frog.calc();
+    println!("{:#?}", frog.costs);
 }
 
