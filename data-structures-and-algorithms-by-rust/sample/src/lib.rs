@@ -1,4 +1,4 @@
-use std::cmp::min;
+use std::rc::Rc;
 
 pub struct Fibonacci {
     pub memo: Vec<Option<usize>>,
@@ -47,7 +47,7 @@ impl SSP {
 
 #[derive(Debug)]
 pub struct Frog {
-    pub hights: Vec<i64>,
+    pub hights:  Vec<i64>,
     pub costs: Vec<i64>,
 }
 
@@ -56,14 +56,23 @@ impl Frog {
 	for (idx, _) in self.hights.iter().enumerate() {
 	    match idx {
 		0 => self.costs[0] = 0,
-		1 => self.costs[1] = (self.hights[1] - self.hights[0]).abs(),
+		1 => {
+		    let prev = (self.hights[1] - self.hights[0]).abs();
+		    self.chmin(1, &prev)
+		},
 		i => {
-		    self.costs[i] = min(
-			(self.hights[i] - self.hights[i - 1]).abs() + self.costs[i - 1],
-			(self.hights[i] - self.hights[i - 2]).abs() + self.costs[i - 2],
-		    )
+		    let prev_1 = (self.hights[i] - self.hights[i - 1]).abs() + self.costs[i - 1];
+		    let prev_2 = (self.hights[i] - self.hights[i - 2]).abs() + self.costs[i - 2];
+		    self.chmin(i, &prev_1);
+		    self.chmin(i, &prev_2)
 		},
 	    }
+	}
+    }
+
+    fn chmin(&mut self, idx: usize, b: &i64 ) {
+	if self.costs[idx] > *b {
+	    self.costs[idx] = *b
 	}
     }
 }
