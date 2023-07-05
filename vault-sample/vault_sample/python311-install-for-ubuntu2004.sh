@@ -11,4 +11,5 @@ sudo apt install wget \
      libffi-dev \
      zlib1g-dev
 sudo add-apt-repository ppa:deadsnakes/ppa
-sudo apt install python3.11
+sudo apt install python3.11 \
+     sudo apt install python3-pip
