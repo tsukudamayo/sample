@@ -10,6 +10,7 @@ packages = [{include = "vault_sample"}]
 python = "^3.11"
 hvac = "^1.1.0"
 psycopg2-binary = "^2.9.6"
+pyotp = "^2.8.0"
 
 
 [build-system]
