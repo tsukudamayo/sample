@@ -4,7 +4,9 @@ ENV HOME /home
 ENV PATH $PATH:$HOME/.cargo/bin
 ENV PATH $PATH:$HOME/.local/bin
 ENV PYTHON_VERSION 3.11.0 
-ENV RUST_ANALYZER_VERSION 2023-01-23
+ENV RUST_ANALYZER_VERSION 2023-08-07
+# ENV CPU_ARCHITECTURE aarch64
+ENV CPU_ARCHITECTURE x86_64
 
 WORKDIR /home
 
@@ -19,10 +21,15 @@ RUN apt update \
     build-essential \
     gnutls-bin \
     && rustup update \
-    && rustup component add rustfmt clippy rls rust-analysis rust-src \
+    && rustup component add rustfmt \
+    clippy \
+    rls \
+    rust-analysis \
+    rust-src \
+    rust-analyzer \
     && mkdir -p ~/.cargo/bin \
-    && curl -L https://github.com/rust-lang/rust-analyzer/releases/download/${RUST_ANALYZER_VERSION}/rust-analyzer-aarch64-unknown-linux-gnu.gz | gunzip -c - > ~/.cargo/bin/rust-analyzer \
-    && chmod +x ~/.cargo/bin/rust-analyzer \ 
+    # && curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-${CPU_ARCHITECTURE}-unknown-linux-gnu.gz | gunzip -c - > ~/.cargo/bin/rust-analyzer \
+    # && chmod +x ~/.cargo/bin/rust-analyzer \ 
     && cargo install cargo-edit \
     && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
     && tar -xf Python-${PYTHON_VERSION}.tgz \

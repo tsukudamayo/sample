@@ -45,37 +45,37 @@ impl SSP {
     }
 }
 
-#[derive(Debug)]
-pub struct Frog {
-    pub hights:  Vec<i64>,
-    pub costs: Vec<i64>,
-}
+// #[derive(Debug)]
+// pub struct Frog {
+//     pub hights:  Vec<i64>,
+//     pub costs: Vec<i64>,
+// }
 
-impl Frog {
-    pub fn calc(&mut self) {
-	for (idx, _) in self.hights.iter().enumerate() {
-	    match idx {
-		0 => self.costs[0] = 0,
-		1 => {
-		    let prev = (self.hights[1] - self.hights[0]).abs();
-		    self.chmin(1, &prev)
-		},
-		i => {
-		    let prev_1 = (self.hights[i] - self.hights[i - 1]).abs() + self.costs[i - 1];
-		    let prev_2 = (self.hights[i] - self.hights[i - 2]).abs() + self.costs[i - 2];
-		    self.chmin(i, &prev_1);
-		    self.chmin(i, &prev_2)
-		},
-	    }
-	}
-    }
+// impl Frog {
+//     pub fn calc(&mut self) {
+// 	for (idx, _) in self.hights.iter().enumerate() {
+// 	    match idx {
+// 		0 => self.costs[0] = 0,
+// 		1 => {
+// 		    let prev = (self.hights[1] - self.hights[0]).abs();
+// 		    self.chmin(1, &prev)
+// 		},
+// 		i => {
+// 		    let prev_1 = (self.hights[i] - self.hights[i - 1]).abs() + self.costs[i - 1];
+// 		    let prev_2 = (self.hights[i] - self.hights[i - 2]).abs() + self.costs[i - 2];
+// 		    self.chmin(i, &prev_1);
+// 		    self.chmin(i, &prev_2)
+// 		},
+// 	    }
+// 	}
+//     }
 
-    fn chmin(&mut self, idx: usize, b: &i64 ) {
-	if self.costs[idx] > *b {
-	    self.costs[idx] = *b
-	}
-    }
-}
+//     fn chmin(&mut self, idx: usize, b: &i64 ) {
+// 	if self.costs[idx] > *b {
+// 	    self.costs[idx] = *b
+// 	}
+//     }
+// }
 
 #[cfg(test)]
 mod tests {
