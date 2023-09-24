@@ -3,6 +3,7 @@ FROM rust:slim-bullseye
 ENV HOME /home
 ENV PATH $PATH:$HOME/.cargo/bin
 ENV PATH $PATH:$HOME/.local/bin
+ENV PATH $PATH:$HOME/.elan/bin
 ENV PYTHON_VERSION 3.11.0 
 
 WORKDIR /home
@@ -44,10 +45,14 @@ RUN apt update && apt install -y zlib1g-dev \
     && apt install -y nodejs \
     && curl -sSL https://install.python-poetry.org | python3 - \
     && pip3 install python-lsp-server pyright \
+        ipython jupyterlab \
     && ln -sf /usr/local/bin/python3 /usr/local/bin/python \
     && ln -sf /usr/local/bin/pip3 /usr/local/bin/pip \
     && rm -rf /home/Python-${PYTHON_VERSION} \
-    && rm /home/Python-${PYTHON_VERSION}.tgz \
+    && rm /home/Python-${PYTHON_VERSION}.tgz
+
+# build lean
+RUN curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | bash -s -- -y \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
