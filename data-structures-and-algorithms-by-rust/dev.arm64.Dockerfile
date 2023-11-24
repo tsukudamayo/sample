@@ -3,10 +3,8 @@ FROM rust:slim-bullseye
 ENV HOME /home
 ENV PATH $PATH:$HOME/.cargo/bin
 ENV PATH $PATH:$HOME/.local/bin
+ENV PATH $PATH:$HOME/.elan/bin
 ENV PYTHON_VERSION 3.11.0 
-ENV RUST_ANALYZER_VERSION 2023-08-07
-# ENV CPU_ARCHITECTURE aarch64
-ENV CPU_ARCHITECTURE x86_64
 
 WORKDIR /home
 
@@ -21,15 +19,8 @@ RUN apt update \
     build-essential \
     gnutls-bin \
     && rustup update \
-    && rustup component add rustfmt \
-    clippy \
-    rls \
-    rust-analysis \
-    rust-src \
-    rust-analyzer \
+    && rustup component add rustfmt clippy rls rust-analysis rust-src rust-analyzer \
     && mkdir -p ~/.cargo/bin \
-    # && curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-${CPU_ARCHITECTURE}-unknown-linux-gnu.gz | gunzip -c - > ~/.cargo/bin/rust-analyzer \
-    # && chmod +x ~/.cargo/bin/rust-analyzer \ 
     && cargo install cargo-edit \
     && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
     && tar -xf Python-${PYTHON_VERSION}.tgz \
@@ -54,10 +45,14 @@ RUN apt update && apt install -y zlib1g-dev \
     && apt install -y nodejs \
     && curl -sSL https://install.python-poetry.org | python3 - \
     && pip3 install python-lsp-server pyright \
+        ipython jupyterlab \
     && ln -sf /usr/local/bin/python3 /usr/local/bin/python \
     && ln -sf /usr/local/bin/pip3 /usr/local/bin/pip \
     && rm -rf /home/Python-${PYTHON_VERSION} \
-    && rm /home/Python-${PYTHON_VERSION}.tgz \
+    && rm /home/Python-${PYTHON_VERSION}.tgz
+
+# build lean
+RUN curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | bash -s -- -y \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
