@@ -4,7 +4,11 @@ ENV HOME /home
 ENV PATH $PATH:$HOME/.cargo/bin
 ENV PATH $PATH:$HOME/.local/bin
 ENV PATH $PATH:$HOME/.elan/bin
-ENV PYTHON_VERSION 3.11.0 
+ENV PYTHON_VERSION 3.12.0
+
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+ARG USERNAME=user
 
 WORKDIR /home
 
@@ -18,6 +22,7 @@ RUN apt update \
     pkg-config \
     build-essential \
     gnutls-bin \
+    sudo \
     && rustup update \
     && rustup component add rustfmt clippy rls rust-analysis rust-src rust-analyzer \
     && mkdir -p ~/.cargo/bin \
@@ -55,7 +60,14 @@ RUN apt update && apt install -y zlib1g-dev \
 RUN curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | bash -s -- -y \
     && rm -rf /var/lib/apt/lists/*
 
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
+
 WORKDIR /workspace
+
+USER $USERNAME
 
 COPY . .
 
