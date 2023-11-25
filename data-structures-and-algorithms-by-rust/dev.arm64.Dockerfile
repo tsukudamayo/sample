@@ -65,10 +65,10 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
-WORKDIR /workspace
-
 USER $USERNAME
 
-COPY . .
+WORKDIR /workspace
+
+COPY --chown=$USERNAME:$USERNAME . .
 
 CMD ["/bin/bash"]
