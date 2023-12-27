@@ -1,4 +1,4 @@
-FROM rust:slim-bullseye
+FROM rust:slim-bookworm
 
 ENV HOME /home
 ENV PATH $PATH:$HOME/.cargo/bin
