@@ -8,6 +8,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     xhost +$(multipass list | grep docker-vm | awk '{print $3}')
     docker run -it --rm \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
+	-v $(pwd):/workspace:delegated \
         -e DISPLAY=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'):0.0 \
         --name command-line-for-rust \
         rust-python-dev \
@@ -17,6 +18,7 @@ else
     xhost +local:
     docker run -it --rm \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
+	-v $(pwd):/workspace:delegated \
         -e DISPLAY=$DISPLAY \
         --name command-line-for-rust \
         rust-python-dev \
